@@ -16,13 +16,15 @@ class FileHandler:
             for line in reader:
                 self.matrix.append(line)
 
-
     def change_data_in_our_matrix(self):
         for incoming_change in self.changes_in_file:
-            data_to_change = incoming_change.split(",")
-            x_value = int(data_to_change[0])
-            y_value = int(data_to_change[1])
-            self.matrix[x_value][y_value] = data_to_change[2]
+            try:
+                data_to_change = incoming_change.split(",")
+                x_value = int(data_to_change[0])
+                y_value = int(data_to_change[1])
+                self.matrix[x_value][y_value] = data_to_change[2]
+            except ValueError:
+                print("Podano niepoprawne dane wejściowe:", incoming_change)
 
     def write_data_to_file(self):
         with open(self.output_file, mode="w") as file:
